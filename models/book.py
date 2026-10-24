@@ -60,6 +60,11 @@ class Book(db.Model):
         default = False
     )
 
+    published_year = db.Column(
+    db.Integer,
+    nullable=True
+    )
+
 #Transformando o modelo em dicionário
 
     def as_dict(self):
