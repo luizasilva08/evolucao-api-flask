@@ -62,6 +62,17 @@ class Book(db.Model):
 
 #Transformando o modelo em dicionário
 
+    def as_dict(self):
+        return{
+            "id":str(self.id), #necessário conversão forçada
+            "title":self.title,
+            "author":self.author,
+            "description":self.description,
+            "is_favorite":self.is_favorite,
+            "is_reading":self.is_reading,
+            "is_finished":self.is_finished
+        }
+
 """
 POR ISSO SERÁ CRIADO UM MÉTODO RESPONSÁVEL POR TRANSFORMAR
 O OBJETO BOOK EM UM DICIONÁRIO PYTHON
@@ -73,13 +84,4 @@ APENAS O NECESSÁRIO PARA SER EXPOSTO PELA API E TRANSFORMANDO EM UM DICT,
 ESTRUTURA QUE PODE SER FACILMENTE SERIALIZADA PARA JSON NA RESPOSTA HTTP
 """
 
-def as_dict(self):
-    return{
-        "id":str(self.id), #necessário conversão forçada
-        "title":self.title,
-        "author":self.author,
-        "description":self.description,
-        "is_favorite":self.is_favorite,
-        "is_reading":self.is_reading,
-        "is_finished":self.is_finished
-    }
+
