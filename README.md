@@ -1,155 +1,242 @@
-# Evolução API Flask
+<div align="center">
 
-API REST em **Flask** para o gerenciamento de uma biblioteca pessoal de livros. O projeto permite consultar, editar, atualizar e remover livros, além de organizá-los por status de leitura e marcá-los como favoritos.
+# 📚 Evolução API Flask
 
-> **Status do projeto:** em desenvolvimento inicial. A configuração base da aplicação (Flask, SQLAlchemy e variáveis de ambiente) está estruturada; os endpoints listados abaixo correspondem ao escopo planejado.
+**API REST para gerenciamento de livros: consulte, organize, favorite e acompanhe suas leituras.**
+
+![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-3.1-000000?style=for-the-badge&logo=flask&logoColor=white)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-ORM-D71F00?style=for-the-badge&logo=sqlalchemy&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![Status](https://img.shields.io/badge/status-em%20desenvolvimento-orange?style=for-the-badge)
+
+[Sobre](#-sobre-o-projeto) •
+[Funcionalidades](#-funcionalidades) •
+[Tecnologias](#-tecnologias) •
+[Instalação](#-instalação-e-execução) •
+[Endpoints](#-endpoints-planejados) •
+[Estrutura](#-estrutura-do-projeto)
+
+</div>
 
 ---
 
-## Sumário
+## 📖 Sobre o projeto
 
-- [Funcionalidades](#funcionalidades)
-- [Tecnologias](#tecnologias)
-- [Estrutura do projeto](#estrutura-do-projeto)
-- [Pré-requisitos](#pré-requisitos)
-- [Instalação e execução](#instalação-e-execução)
-- [Configuração](#configuração)
-- [Migrações de banco de dados](#migrações-de-banco-de-dados)
-- [Endpoints previstos](#endpoints-previstos)
-- [Próximos passos](#próximos-passos)
-- [Autoria](#autoria)
+O **Evolução API Flask** é uma aplicação back-end desenvolvida com **Flask** para o gerenciamento de uma biblioteca pessoal. Cada livro possui informações como título, autor e descrição, além de indicadores de leitura que permitem ao usuário marcar seus livros como **favoritos**, **em leitura** ou **finalizados**.
+
+O projeto adota uma arquitetura em camadas, com separação entre a aplicação (rotas), a instância do ORM, os modelos de dados e o controle de migrações do banco.
+
+> 🚧 **Status:** o projeto está em evolução. A configuração base da aplicação, da conexão com o banco e do ORM já está definida; os endpoints listados abaixo compõem o escopo planejado.
 
 ---
 
-## Funcionalidades
+## ✨ Funcionalidades
 
-- Consultar livros cadastrados
-- Editar e atualizar informações de um livro
-- Deletar livros
-- Favoritar livros
-- Listar livros em leitura
-- Listar livros finalizados
+| Ícone | Funcionalidade | Descrição |
+|:-----:|----------------|-----------|
+| 🔍 | **Consultar** | Listar todos os livros ou buscar um livro específico |
+| ➕ | **Cadastrar** | Adicionar novos livros à biblioteca |
+| ✏️ | **Editar / Atualizar** | Alterar os dados de um livro existente |
+| 🗑️ | **Deletar** | Remover um livro da biblioteca |
+| ⭐ | **Favoritar** | Marcar ou desmarcar um livro como favorito |
+| 📖 | **Em leitura** | Listar e controlar os livros que estão sendo lidos |
+| ✅ | **Finalizados** | Listar e controlar os livros já concluídos |
 
-## Tecnologias
+---
 
-| Camada | Tecnologia |
-| --- | --- |
-| Linguagem | Python 3 |
-| Framework web | Flask |
-| ORM | Flask-SQLAlchemy / SQLAlchemy |
-| Migrações | Flask-Migrate / Alembic |
-| Banco de dados | PostgreSQL (driver `psycopg`) |
-| Configuração | python-dotenv |
+## 🛠️ Tecnologias
 
-## Estrutura do projeto
+| Tecnologia | Finalidade |
+|------------|------------|
+| **Python** | Linguagem principal |
+| **Flask** | Framework web e definição dos endpoints |
+| **Flask-SQLAlchemy** | ORM para mapeamento e acesso aos dados |
+| **Flask-Migrate / Alembic** | Controle de migrações do esquema do banco |
+| **psycopg** | Driver de conexão com PostgreSQL |
+| **python-dotenv** | Carregamento de variáveis de ambiente (`.env`) |
 
+---
+
+## 🧱 Arquitetura
+
+```mermaid
+flowchart LR
+    A[👤 Cliente<br/>HTTP/JSON] --> B[🌐 app.py<br/>Flask + Endpoints]
+    B --> C[🧩 models/<br/>Modelos de dados]
+    C --> D[🔌 db.py<br/>Instância SQLAlchemy]
+    D --> E[(🗄️ Banco de dados)]
+    F[📝 migrations.py<br/>Controle estrutural] -.-> E
+    G[🔐 .env<br/>DATABASE_URL] -.-> B
 ```
+
+---
+
+## 🗂️ Estrutura do projeto
+
+```text
 evolucao-api-flask/
-├── models/            # Modelos (entidades) mapeados pelo SQLAlchemy
-├── app.py             # Aplicação Flask e definição dos endpoints
-├── db.py              # Instância compartilhada do SQLAlchemy (ORM)
-├── migrations.py      # Controle das alterações estruturais do banco
-├── requirements.txt   # Dependências do projeto
-└── README.md
+├── 📁 models/            # Modelos de dados (entidade Livro)
+├── 📄 app.py             # Aplicação Flask e endpoints
+├── 📄 db.py              # Instância do SQLAlchemy (ORM)
+├── 📄 migrations.py      # Controle das alterações estruturais do banco
+├── 📄 requirements.txt   # Dependências do projeto
+└── 📄 README.md          # Documentação
 ```
 
 | Arquivo | Responsabilidade |
-| --- | --- |
-| `app.py` | Cria a aplicação Flask, carrega o `.env` e define a URI do banco de dados. É o ponto de entrada dos endpoints. |
-| `db.py` | Expõe a instância `db` do SQLAlchemy, reutilizada em diferentes partes da aplicação. |
-| `migrations.py` | Reservado ao controle das alterações estruturais realizadas no banco. |
-| `models/` | Reúne as classes que representam as tabelas do banco. |
+|---------|------------------|
+| `app.py` | Cria a aplicação Flask, carrega o `.env`, configura a `DATABASE_URL` e concentra os endpoints |
+| `db.py` | Disponibiliza a variável `db`, instância do SQLAlchemy utilizada em toda a aplicação |
+| `migrations.py` | Armazena o controle das alterações estruturais realizadas no banco |
+| `models/` | Define as entidades persistidas no banco de dados |
 
-## Pré-requisitos
+---
 
-- Python 3.10 ou superior
-- PostgreSQL em execução (local ou remoto)
-- `pip` e, preferencialmente, `venv`
+## 🧾 Modelo de dados
 
-## Instalação e execução
+Estrutura de um livro, conforme representação em JSON:
 
-1. **Clonar o repositório**
+```json
+{
+    "id": "a9a77436-89ee-4573-a9a5-2171ec0eed2a",
+    "title": "O Senhor dos Anéis: A Sociedade do Anel",
+    "author": "J.R.R. Tolkien",
+    "description": "O primeiro volume de uma das maiores obras de fantasia da literatura mundial.",
+    "is_favorite": true,
+    "is_reading": false,
+    "is_finished": false
+}
+```
 
-   ```bash
-   git clone https://github.com/luizasilva08/evolucao-api-flask.git
-   cd evolucao-api-flask
-   ```
+| Campo | Tipo | Descrição |
+|-------|------|-----------|
+| `id` | `UUID` | Identificador único do livro |
+| `title` | `string` | Título da obra |
+| `author` | `string` | Autor da obra |
+| `description` | `string` | Resumo ou sinopse |
+| `is_favorite` | `boolean` | Indica se o livro é favorito |
+| `is_reading` | `boolean` | Indica se o livro está em leitura |
+| `is_finished` | `boolean` | Indica se a leitura foi concluída |
 
-2. **Criar e ativar o ambiente virtual**
+---
 
-   ```bash
-   python -m venv venv
+## 🚀 Instalação e execução
 
-   # Linux / macOS
-   source venv/bin/activate
+### Pré-requisitos
 
-   # Windows
-   venv\Scripts\activate
-   ```
+- 🐍 Python 3.11 ou superior
+- 🐘 Banco de dados PostgreSQL (ou outro compatível com SQLAlchemy)
+- 🔧 Git
 
-3. **Instalar as dependências**
+### Passo a passo
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+**1. Clone o repositório**
 
-4. **Configurar as variáveis de ambiente** (veja a seção [Configuração](#configuração)).
+```bash
+git clone https://github.com/luizasilva08/evolucao-api-flask.git
+cd evolucao-api-flask
+```
 
-5. **Executar a aplicação**
+**2. Crie e ative o ambiente virtual**
 
-   ```bash
-   flask --app app run --debug
-   ```
+```bash
+python -m venv venv
 
-   A API ficará disponível em `http://127.0.0.1:5000`.
+# Windows
+venv\Scripts\activate
 
-## Configuração
+# Linux / macOS
+source venv/bin/activate
+```
 
-A aplicação lê suas configurações de um arquivo `.env` na raiz do projeto. Crie o arquivo com o seguinte conteúdo:
+**3. Instale as dependências**
+
+```bash
+pip install -r requirements.txt
+```
+
+**4. Configure as variáveis de ambiente**
+
+Crie um arquivo `.env` na raiz do projeto:
 
 ```env
 DATABASE_URL=postgresql+psycopg://usuario:senha@localhost:5432/nome_do_banco
 ```
 
-| Variável | Descrição |
-| --- | --- |
-| `DATABASE_URL` | URI de conexão com o banco de dados, utilizada em `SQLALCHEMY_DATABASE_URI`. |
+> 🔐 **Importante:** nunca versione o arquivo `.env`. Adicione-o ao `.gitignore`.
 
-> **Importante:** não versione o arquivo `.env`. Adicione-o ao `.gitignore` para evitar a exposição de credenciais.
-
-## Migrações de banco de dados
-
-O projeto inclui o **Flask-Migrate** (Alembic) para o versionamento do esquema do banco. Após inicializar a extensão na aplicação, o fluxo usual é:
+**5. Execute a aplicação**
 
 ```bash
-flask --app app db init       # executado uma única vez
-flask --app app db migrate -m "descrição da alteração"
-flask --app app db upgrade
+flask --app app run --debug
 ```
 
-## Endpoints previstos
+A API ficará disponível em `http://127.0.0.1:5000`.
 
-A tabela abaixo descreve o escopo planejado da API. Os caminhos são sugestões e podem ser ajustados durante a implementação.
+---
+
+## 🔌 Endpoints planejados
+
+> Os endpoints abaixo correspondem ao escopo definido para a aplicação.
 
 | Método | Rota | Descrição |
-| --- | --- | --- |
-| `GET` | `/livros` | Lista todos os livros |
-| `GET` | `/livros/<id>` | Consulta um livro específico |
-| `PUT` | `/livros/<id>` | Atualiza os dados de um livro |
-| `DELETE` | `/livros/<id>` | Remove um livro |
-| `PATCH` | `/livros/<id>/favorito` | Marca ou desmarca um livro como favorito |
-| `GET` | `/livros/em-leitura` | Lista os livros em leitura |
-| `GET` | `/livros/finalizados` | Lista os livros finalizados |
+|:------:|------|-----------|
+| ![GET](https://img.shields.io/badge/GET-2ea44f?style=flat-square) | `/books` | Lista todos os livros |
+| ![GET](https://img.shields.io/badge/GET-2ea44f?style=flat-square) | `/books/<id>` | Consulta um livro pelo ID |
+| ![POST](https://img.shields.io/badge/POST-0969da?style=flat-square) | `/books` | Cadastra um novo livro |
+| ![PUT](https://img.shields.io/badge/PUT-bf8700?style=flat-square) | `/books/<id>` | Atualiza os dados de um livro |
+| ![DELETE](https://img.shields.io/badge/DELETE-cf222e?style=flat-square) | `/books/<id>` | Remove um livro |
+| ![PATCH](https://img.shields.io/badge/PATCH-8250df?style=flat-square) | `/books/<id>/favorite` | Alterna o status de favorito |
+| ![GET](https://img.shields.io/badge/GET-2ea44f?style=flat-square) | `/books/reading` | Lista os livros em leitura |
+| ![GET](https://img.shields.io/badge/GET-2ea44f?style=flat-square) | `/books/finished` | Lista os livros finalizados |
 
-## Próximos passos
+### Exemplo de requisição
 
-- [ ] Definir os modelos em `models/` (por exemplo, `Livro`)
-- [ ] Inicializar o Flask-Migrate e gerar a migração inicial
-- [ ] Implementar os endpoints descritos acima
-- [ ] Adicionar validação de dados e tratamento de erros
-- [ ] Incluir testes automatizados
-- [ ] Revisar o `requirements.txt`, mantendo apenas as dependências necessárias ao projeto
+```bash
+curl -X POST http://127.0.0.1:5000/books \
+  -H "Content-Type: application/json" \
+  -d '{
+        "title": "1984",
+        "author": "George Orwell",
+        "description": "Distopia clássica sobre vigilância e totalitarismo."
+      }'
+```
 
-## Autoria
+---
 
-Desenvolvido por [Luíza da Silva](https://github.com/luizasilva08).
+## 🗺️ Roadmap
+
+- [x] Estrutura base da aplicação Flask
+- [x] Configuração do SQLAlchemy e da conexão via `DATABASE_URL`
+- [ ] Modelo `Book` com campos de leitura
+- [ ] Configuração das migrações com Flask-Migrate
+- [ ] CRUD completo de livros
+- [ ] Endpoints de favoritos, em leitura e finalizados
+- [ ] Validação de dados e tratamento de erros
+- [ ] Testes automatizados
+- [ ] Documentação interativa (Swagger/OpenAPI)
+
+---
+
+## 🤝 Contribuição
+
+Contribuições são bem-vindas.
+
+1. Faça um *fork* do projeto
+2. Crie uma *branch* para a sua alteração (`git checkout -b feature/minha-feature`)
+3. Faça o *commit* (`git commit -m "feat: descrição da alteração"`)
+4. Envie para o repositório remoto (`git push origin feature/minha-feature`)
+5. Abra um *Pull Request*
+
+---
+
+## 👩‍💻 Autora
+
+<div align="center">
+
+Desenvolvido por **Luíza da Silva**
+
+[![GitHub](https://img.shields.io/badge/GitHub-luizasilva08-181717?style=for-the-badge&logo=github)](https://github.com/luizasilva08)
+
+</div>
