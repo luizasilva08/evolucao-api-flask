@@ -219,18 +219,6 @@ curl -X POST http://127.0.0.1:5000/books \
 
 ---
 
-## 🤝 Contribuição
-
-Contribuições são bem-vindas.
-
-1. Faça um *fork* do projeto
-2. Crie uma *branch* para a sua alteração (`git checkout -b feature/minha-feature`)
-3. Faça o *commit* (`git commit -m "feat: descrição da alteração"`)
-4. Envie para o repositório remoto (`git push origin feature/minha-feature`)
-5. Abra um *Pull Request*
-
----
-
 ## 👩‍💻 Autora
 
 <div align="center">
