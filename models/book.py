@@ -65,7 +65,7 @@ class Book(db.Model):
     nullable=True
     )
 
-#Transformando o modelo em dicionário
+#Transformando o modelo em dicionário, é o que mostrado em json (GET)
 
     def as_dict(self):
         return{
@@ -75,7 +75,8 @@ class Book(db.Model):
             "description":self.description,
             "is_favorite":self.is_favorite,
             "is_reading":self.is_reading,
-            "is_finished":self.is_finished
+            "is_finished":self.is_finished,
+            "published_year":self.published_year
         }
 
 """
