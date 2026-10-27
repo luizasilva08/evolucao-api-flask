@@ -105,7 +105,8 @@ Estrutura de um livro, conforme representação em JSON:
     "description": "O primeiro volume de uma das maiores obras de fantasia da literatura mundial.",
     "is_favorite": true,
     "is_reading": false,
-    "is_finished": false
+    "is_finished": false,
+    "published_year": 1954
 }
 ```
 
@@ -114,10 +115,11 @@ Estrutura de um livro, conforme representação em JSON:
 | `id` | `UUID` | Identificador único do livro |
 | `title` | `string` | Título da obra |
 | `author` | `string` | Autor da obra |
-| `description` | `string` | Resumo ou sinopse |
+| `description` | `text` | Resumo ou sinopse |
 | `is_favorite` | `boolean` | Indica se o livro é favorito |
 | `is_reading` | `boolean` | Indica se o livro está em leitura |
 | `is_finished` | `boolean` | Indica se a leitura foi concluída |
+| `published_year` | `integer` | Ano de publicação da obra |
 
 ---
 
