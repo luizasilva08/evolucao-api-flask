@@ -85,6 +85,30 @@ def delete_book(book_id):
         "message": "Livro removido com sucesso"
     })
 
+@app.get("/books/favorites")          #lista os livros que estão favoritados
+def list_favorites():
+    books = Book.query.filter_by(is_favorite=True).all()
+    return jsonify([
+        book.as_dict() 
+        for book in books
+        ]), 200
+
+@app.get("/books/reading")           #lista os livros que estão em leitura
+def list_reading():
+    books = Book.query.filter_by(is_reading=True).all()
+    return jsonify([
+        book.as_dict() 
+        for book in books
+        ]), 200
+
+@app.get("/books/finished")           #lista os livros que estão em leitura
+def list_finished():
+    books = Book.query.filter_by(is_finished=True).all()
+    return jsonify([
+        book.as_dict() 
+        for book in books
+        ]), 200
+
 if __name__ == "__main__":
     app.run(
         host="0.0.0.0",
