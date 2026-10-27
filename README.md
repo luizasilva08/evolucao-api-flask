@@ -189,9 +189,9 @@ A API ficará disponível em `http://127.0.0.1:5000`.
 | ![POST](https://img.shields.io/badge/POST-0969da?style=flat-square) | `/books` | Cadastra um novo livro |
 | ![DELETE](https://img.shields.io/badge/DELETE-cf222e?style=flat-square) | `/books/<id>` | Remove um livro |
 | ![PATCH](https://img.shields.io/badge/PATCH-8250df?style=flat-square) | `/books/<id>` | Atualiza dados de um livro |
-| ![GET](https://img.shields.io/badge/GET-2ea44f?style=flat-square) | `/books/<id>/reading` | Consulta livros que estão em leitura |
-| ![GET](https://img.shields.io/badge/GET-2ea44f?style=flat-square) | `/books/<id>/favorites` | Consulta livros que estão favoritados |
-| ![GET](https://img.shields.io/badge/GET-2ea44f?style=flat-square) | `/books/<id>/finished` | Consulta livros que estão finalizados |
+| ![GET](https://img.shields.io/badge/GET-2ea44f?style=flat-square) | `/books/reading` | Consulta livros que estão em leitura |
+| ![GET](https://img.shields.io/badge/GET-2ea44f?style=flat-square) | `/books/favorites` | Consulta livros que estão favoritados |
+| ![GET](https://img.shields.io/badge/GET-2ea44f?style=flat-square) | `/books/finished` | Consulta livros que estão finalizados |
 
 ### Exemplo de requisição
 
