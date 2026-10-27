@@ -101,7 +101,7 @@ def list_reading():
         for book in books
         ]), 200
 
-@app.get("/books/finished")           #lista os livros que estão em leitura
+@app.get("/books/finished")           #lista os livros que estão finalizados
 def list_finished():
     books = Book.query.filter_by(is_finished=True).all()
     return jsonify([
